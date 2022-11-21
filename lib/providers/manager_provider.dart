@@ -5,9 +5,10 @@ class ConceptProvider extends ChangeNotifier {
   List<Concept> concepts = [];
   //int dummyNumber = 0;
 
-  void addTask(title, amount, desc, isIncome) {
+  void addConcept(title, amount, desc, isIncome, createdAt) {
+    
     Concept concept = Concept(
-        title: title, amount: amount, description: desc, isIncome: isIncome);
+        title: title, amount: amount, description: desc, isIncome: isIncome,createdAt:createdAt);
     concepts.add(concept);
     notifyListeners();
   }
@@ -16,13 +17,13 @@ class ConceptProvider extends ChangeNotifier {
 
   num getBalance() {
     num total = 0;
-    concepts.forEach((element) {
+    for (var element in concepts) {
       if (element.isIncome) {
         total = total + element.amount;
       } else {
         total = total - element.amount;
       }
-    });
+    }
     return total;
   }
 }

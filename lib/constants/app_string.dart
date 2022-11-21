@@ -8,5 +8,5 @@ class AppString {
   static String amount = "Amount";
   static String description = "Description";
   static String submit = "SUBMIT";
-
+  static String createConcept = "Create Concept";
 }
