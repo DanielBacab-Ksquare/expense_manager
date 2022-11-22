@@ -13,6 +13,16 @@ class AddConceptScreen extends StatefulWidget {
 }
 
 class _AddConceptScreenState extends State<AddConceptScreen> {
+  int messageIndex = 0;
+
+
+
+  final List<Widget> _widgetOptions = <Widget>[
+    const Text(""),
+    const Text("You must enter a value in all fields", style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),),
+    const Text("The amount can't be zero or negative.",style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),)
+  ];
+
   final TextEditingController _titleCtrl = TextEditingController();
 
   final TextEditingController _amountCtrl = TextEditingController();
@@ -79,36 +89,38 @@ class _AddConceptScreenState extends State<AddConceptScreen> {
               ),
               TextField(
                 key: Key('titleTextField'),
+                maxLength: 15,
                 controller: _titleCtrl,
                 decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: AppString.title,
-                   labelStyle: const TextStyle(color: Colors.grey, fontSize: 22)
-                ),
+                    border: const OutlineInputBorder(),
+                    labelText: AppString.title,
+                    labelStyle:
+                        const TextStyle(color: Colors.grey, fontSize: 22)),
               ),
-
               const SizedBox(height: 8),
               TextField(
                 key: Key('amountTextField'),
                 keyboardType: TextInputType.number,
+                maxLength: 9,
                 controller: _amountCtrl,
                 decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     labelText: AppString.amount,
-                    labelStyle: const TextStyle(color: Colors.grey, fontSize: 22)
-                   ),
+                    labelStyle:
+                        const TextStyle(color: Colors.grey, fontSize: 22)),
               ),
               const SizedBox(height: 8),
               TextField(
                 key: Key('descTextField'),
                 controller: _descCtrl,
                 maxLines: 5,
+                maxLength: 250,
                 decoration: InputDecoration(
-                  alignLabelWithHint: true,
-                  border: OutlineInputBorder(),
-                  labelText: AppString.description,
-                  labelStyle: const TextStyle(color: Colors.grey, fontSize: 22)
-                ),
+                    alignLabelWithHint: true,
+                    border: OutlineInputBorder(),
+                    labelText: AppString.description,
+                    labelStyle:
+                        const TextStyle(color: Colors.grey, fontSize: 22)),
               ),
               const SizedBox(height: 8),
               SizedBox(
@@ -121,41 +133,56 @@ class _AddConceptScreenState extends State<AddConceptScreen> {
                         num.tryParse(_amountCtrl.text) is num &&
                         _descCtrl.text is String &&
                         _descCtrl.text.isNotEmpty) {
-                      String now =
-                          DateFormat('d-M-y hh:mm aaa').format(DateTime.now());
-                      Provider.of<ConceptProvider>(
-                        context,
-                        listen: false,
-                      ).addConcept(
-                          _titleCtrl.text,
-                          double.parse((num.tryParse(_amountCtrl.text))!
-                              .toStringAsFixed(2)),
-                          _descCtrl.text,
-                          isIncome,
-                          now);
+                      if (num.tryParse(_amountCtrl.text)! > 0) {
+                        String now = DateFormat('d-M-y hh:mm aaa')
+                            .format(DateTime.now());
+                        Provider.of<ConceptProvider>(
+                          context,
+                          listen: false,
+                        ).addConcept(
+                            _titleCtrl.text,
+                            double.parse((num.tryParse(_amountCtrl.text))!
+                                .toStringAsFixed(2)),
+                            _descCtrl.text,
+                            isIncome,
+                            now);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Home(),
-                        ),
-                      );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Home(),
+                          ),
+                        );
+                      }else{
+                        setState(() {
+                           messageIndex = 2;
+                        });
+                        
+                      }
+
                     } else {
-                      print("null detected");
+                      setState(() {
+                        messageIndex = 1;
+                      });
+                      
                     }
                   },
-                  child: Text(
-                    AppString.submit,
-                    style: TextStyle(fontSize: 18),
-                  ),
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
                         const EdgeInsets.symmetric(vertical: 15)),
                     backgroundColor: const MaterialStatePropertyAll<Color>(
                         Color(0xff5ebd93)),
                   ),
+                  child: Text(
+                    AppString.submit,
+                    style: const TextStyle(fontSize: 18),
+                  ),
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              _widgetOptions.elementAt(messageIndex),
             ],
           ),
         ),

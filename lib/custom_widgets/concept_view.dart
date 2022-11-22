@@ -14,6 +14,9 @@ class ConceptView extends StatelessWidget {
     required this.amount,
   });
 
+  
+
+
   @override
   Widget build(BuildContext context) {
     String incOrExp;
@@ -43,10 +46,10 @@ class ConceptView extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.w700),
+                  style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 10,),
-                Text(createdAt, style: TextStyle(color: Colors.grey),)
+                Text(createdAt, style: const TextStyle(color: Colors.grey),)
               ],
             ),
           ),
@@ -54,7 +57,7 @@ class ConceptView extends StatelessWidget {
             margin: const EdgeInsets.only(right: 15),
             child: Text(
               incOrExp,
-              style: TextStyle(fontSize: 23, color: colorConcept),
+              style: TextStyle(fontSize: 18, color: colorConcept),
             ),
           )
         ],
