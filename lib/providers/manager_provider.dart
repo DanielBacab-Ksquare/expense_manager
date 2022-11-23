@@ -13,7 +13,7 @@ class ConceptProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  get getTaskCount => concepts.length;
+  get getConceptCount => concepts.length;
 
   num getBalance() {
     num total = 0;

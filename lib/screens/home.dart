@@ -6,18 +6,14 @@ import 'package:expense_manager/custom_widgets/concept_view.dart';
 import 'package:expense_manager/model/concept.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
+  int dataFound = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Column(
-        children: [
+  final List<Widget> _mainWidget = <Widget>[
 
-          Balance(),
-          
-          Flexible (child: Consumer<ConceptProvider>(
+     const Expanded(child: Center(child: Text("No Data Found",style: TextStyle(fontSize: 20),),)),
+
+    Flexible(child: Consumer<ConceptProvider>(
             builder: (((context, obj, child) {
               List<Concept> concepts = obj.concepts;
               return ListView.builder(
@@ -25,7 +21,9 @@ class Home extends StatelessWidget {
                 itemBuilder: (((context, index) {
                   Concept concept = concepts[index];
                   return Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 15,),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                    ),
                     child: ConceptView(
                         title: concept.title,
                         createdAt: concept.createdAt,
@@ -36,6 +34,25 @@ class Home extends StatelessWidget {
               );
             })),
           ))
+          
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    int numberConcepts =
+        Provider.of<ConceptProvider>(context).getConceptCount;
+    if (numberConcepts > 0) {
+      dataFound = 1;
+    }else{
+      dataFound = 0;
+    }
+    return Scaffold(
+      body: Center(
+          child: Column(
+        children: [
+          const Balance(),
+           _mainWidget.elementAt(dataFound),
+          
         ],
       )),
     );

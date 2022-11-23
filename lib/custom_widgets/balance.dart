@@ -42,6 +42,7 @@ class Balance extends StatelessWidget {
             SizedBox(
               width: 100,
               child: ElevatedButton(
+                key: const Key('createButton'),
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.white)),

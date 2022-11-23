@@ -17,7 +17,7 @@ class _AddConceptScreenState extends State<AddConceptScreen> {
 
 
 
-  final List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetBottom = <Widget>[
     const Text(""),
     const Text("You must enter a value in all fields", style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),),
     const Text("The amount can't be zero or negative.",style: TextStyle(color: Colors.red, fontSize: 20, fontWeight: FontWeight.bold),)
@@ -150,7 +150,7 @@ class _AddConceptScreenState extends State<AddConceptScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Home(),
+                            builder: (context) => Home(),
                           ),
                         );
                       }else{
@@ -182,7 +182,7 @@ class _AddConceptScreenState extends State<AddConceptScreen> {
               const SizedBox(
                 height: 15,
               ),
-              _widgetOptions.elementAt(messageIndex),
+              _widgetBottom.elementAt(messageIndex),
             ],
           ),
         ),
