@@ -7,12 +7,12 @@ import 'package:expense_manager/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('end-to-end test', () {
-    testWidgets('add_task', (tester) async {
+    testWidgets('add_concept', (tester) async {
       app.main();
       await tester.pumpAndSettle();
       // Clicking Fab Button & Navigate to Add Task Screen
-      final Finder fab = find.byKey(const Key('createButton'));
-      await tester.tap(fab);
+      final Finder createButton = find.byKey(const Key('createButton'));
+      await tester.tap(createButton);
       await tester.pumpAndSettle();
 
       // Adding new Task
@@ -23,7 +23,7 @@ void main() {
           find.byKey(const Key('amountTextField')), '599.99');
 
       await tester.enterText(
-          find.byKey(const Key('descTextField')), 'Discuss about the meeting');
+          find.byKey(const Key('descTextField')), 'New');
       final Finder addTaskButton = find.byKey(const Key('addTaskButton'));
       await tester.tap(addTaskButton);
 
